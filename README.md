@@ -38,11 +38,10 @@ Execute sql scripts from `server/scripts.sql` file manually using one of the fol
 ### Method 3: Using pgAdmin (GUI Tool)
 
 1. Open pgAdmin and connect to your PostgreSQL server
-2. Right-click on "Databases" and select "Create" → "Database"
-3. Name it `bank_account` (or skip this if using the script to create it)
-4. Open the Query Tool (Tools → Query Tool or right-click on the database)
-5. Open the file `server/scripts.sql` or copy-paste its contents
-6. Click the "Execute" button (▶️) or press F5
+2. Open the Query Tool (Tools → Query Tool)
+   - **Note**: The `scripts.sql` file creates the database automatically, so execute it at the server level, not within a specific database
+3. Open the file `server/scripts.sql` (File → Open) or copy-paste its contents into the Query Tool
+4. Click the "Execute" button (▶️) or press F5
 
 ### Method 4: Copy-Paste Method
 
@@ -62,7 +61,10 @@ Execute sql scripts from `server/scripts.sql` file manually using one of the fol
 ### Troubleshooting
 
 - **Permission denied**: Ensure your PostgreSQL user has CREATE DATABASE privileges
-- **Database already exists**: Drop the existing database first with `DROP DATABASE bank_account;` or use a different database name
+- **Database already exists**: 
+  - **⚠️ WARNING**: Dropping a database will permanently delete all data
+  - For fresh setup: `DROP DATABASE IF EXISTS bank_account;` then re-run the script
+  - For existing data: Backup first using `pg_dump bank_account > backup.sql`, or use a different database name
 - **psql command not found**: Add PostgreSQL bin directory to your system PATH
 - **Connection refused**: Verify PostgreSQL is running and accepting connections on port 5432
 
