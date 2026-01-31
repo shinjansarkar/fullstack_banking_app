@@ -1,24 +1,162 @@
-## Connect to Postgresql Database
+# Fullstack Banking Application
 
-Add Postgresql database connection details in `server/db/connect.js` file
+A full-stack banking application built with React, Node.js, Express, and PostgreSQL.
 
-## Add database tables
+## Prerequisites
 
-Execute sql scripts from `server/scripts.sql` file
+- Node.js (v12 or higher)
+- PostgreSQL (v10 or higher)
+- Yarn or npm
 
-## To run the project execute following commands in sequence
+## Database Setup and Migration
 
-    1. cd server
-    2. yarn install
-    3. yarn start
-    4. cd ..
-    5. yarn install
-    6. yarn start
+### Quick Start
 
+1. **Install PostgreSQL** and ensure it's running
+   ```bash
+   # Check PostgreSQL status
+   sudo service postgresql status
+   ```
+
+2. **Configure database credentials**
+   
+   Copy the example environment file:
+   ```bash
+   cd server
+   cp .env.example .env
+   ```
+   
+   Edit `server/.env` with your PostgreSQL credentials:
+   ```env
+   DB_USER=postgres
+   DB_PASSWORD=your_password
+   DB_HOST=localhost
+   DB_PORT=5432
+   DB_NAME=bank_account
+   ```
+
+3. **Create database and run migrations**
+   
+   **Option A: Using psql (Manual method)**
+   ```bash
+   # Create database and tables
+   psql -U postgres -f server/scripts.sql
+   ```
+   
+   **Option B: Using migration tool (Recommended)**
+   ```bash
+   # First, create the database manually
+   psql -U postgres -c "CREATE DATABASE bank_account;"
+   
+   # Then run migrations
+   cd server
+   yarn install
+   yarn migrate
+   
+   # Check migration status
+   yarn migrate:status
+   ```
+
+### Database Migration
+
+This project includes a migration system to manage database schema changes. See [MIGRATION.md](MIGRATION.md) for detailed migration documentation.
+
+**Available migration commands:**
+```bash
+cd server
+yarn migrate        # Run all pending migrations
+yarn migrate:status # Check migration status
+```
+
+## Installation and Running
+
+### Backend (Server)
+
+1. Navigate to server directory and install dependencies:
+   ```bash
+   cd server
+   yarn install
+   ```
+
+2. Start the backend server:
+   ```bash
+   yarn start
+   ```
+   
+   The server will run on http://localhost:5000
+
+### Frontend (Client)
+
+1. In a new terminal, navigate to project root and install dependencies:
+   ```bash
+   cd ..
+   yarn install
+   ```
+
+2. Start the React development server:
+   ```bash
+   yarn start
+   ```
+   
+   The app will open at http://localhost:3000
+
+## Project Structure
+
+```
+fullstack_banking_app/
+├── server/                 # Backend (Node.js + Express)
+│   ├── db/                # Database connection
+│   ├── middleware/        # Express middleware
+│   ├── migrations/        # Database migration files
+│   ├── routes/            # API routes
+│   ├── utils/             # Utility functions
+│   ├── migrate.js         # Migration runner script
+│   ├── scripts.sql        # Initial database setup script
+│   └── index.js           # Server entry point
+├── src/                   # Frontend (React)
+│   └── ...
+├── public/                # Static files
+├── MIGRATION.md           # Detailed migration guide
+└── README.md              # This file
+```
+
+## API Endpoints
+
+- `POST /signup` - Register new user
+- `POST /signin` - Login user
+- `POST /logout` - Logout user
+- `GET /profile` - Get user profile
+- `POST /profile` - Update user profile
+
+## Environment Variables
+
+Create a `.env` file in the `server` directory with the following variables:
+
+```env
+DB_USER=postgres
+DB_PASSWORD=your_password
+DB_HOST=localhost
+DB_PORT=5432
+DB_NAME=bank_account
+PORT=5000
+JWT_SECRET=your_jwt_secret
+```
+
+## Troubleshooting
+
+### Database Connection Issues
+
+1. Verify PostgreSQL is running: `sudo service postgresql status`
+2. Check credentials in `server/.env`
+3. Ensure database exists: `psql -U postgres -l`
+
+### Migration Issues
+
+See [MIGRATION.md](MIGRATION.md) for detailed troubleshooting steps.
+
+---
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
-
-## Available Scripts
 
 In the project directory, you can run:
 

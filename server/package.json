@@ -4,7 +4,9 @@
   "main": "index.js",
   "license": "MIT",
   "scripts": {
-    "start": "nodemon index.js"
+    "start": "nodemon index.js",
+    "migrate": "node migrate.js run",
+    "migrate:status": "node migrate.js status"
   },
   "dependencies": {
     "axios": "0.19.2",
