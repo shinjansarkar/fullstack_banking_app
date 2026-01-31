@@ -4,7 +4,69 @@ Add Postgresql database connection details in `server/db/connect.js` file
 
 ## Add database tables
 
-Execute sql scripts from `server/scripts.sql` file
+Execute sql scripts from `server/scripts.sql` file manually using one of the following methods:
+
+### Method 1: Using psql Command Line (Recommended)
+
+1. Open your terminal/command prompt
+2. Navigate to the project directory:
+   ```bash
+   cd /path/to/fullstack_banking_app
+   ```
+3. Execute the SQL script using psql:
+   ```bash
+   psql -U postgres -f server/scripts.sql
+   ```
+   - Replace `postgres` with your PostgreSQL username if different
+   - You'll be prompted for your PostgreSQL password
+
+### Method 2: Using psql Interactive Mode
+
+1. Connect to PostgreSQL:
+   ```bash
+   psql -U postgres
+   ```
+2. Run the script from within psql:
+   ```sql
+   \i server/scripts.sql
+   ```
+   Or using absolute path:
+   ```sql
+   \i /full/path/to/server/scripts.sql
+   ```
+
+### Method 3: Using pgAdmin (GUI Tool)
+
+1. Open pgAdmin and connect to your PostgreSQL server
+2. Open the Query Tool (Tools → Query Tool)
+   - **Note**: The `scripts.sql` file creates the database automatically, so execute it at the server level, not within a specific database
+3. Open the file `server/scripts.sql` (File → Open) or copy-paste its contents into the Query Tool
+4. Click the "Execute" button (▶️) or press F5
+
+### Method 4: Copy-Paste Method
+
+1. Open `server/scripts.sql` in a text editor
+2. Copy all the SQL commands
+3. Connect to PostgreSQL using any client (psql, pgAdmin, DBeaver, etc.)
+4. Paste and execute the commands
+
+### Prerequisites
+
+- PostgreSQL must be installed and running
+- You need a PostgreSQL user with sufficient privileges to create databases and tables
+- Make sure PostgreSQL service is running:
+  - **Windows**: Check Services for "postgresql-x64-XX"
+  - **Linux/Mac**: `sudo service postgresql status` or `brew services list`
+
+### Troubleshooting
+
+- **Permission denied**: Ensure your PostgreSQL user has CREATE DATABASE privileges
+- **Database already exists**: 
+  - **⚠️ WARNING**: Dropping a database will permanently delete all data
+  - For fresh setup: `DROP DATABASE IF EXISTS bank_account;` then re-run the script
+  - For existing data: Backup first using `pg_dump bank_account > backup.sql`, or use a different database name
+- **psql command not found**: Add PostgreSQL bin directory to your system PATH
+- **Connection refused**: Verify PostgreSQL is running and accepting connections on port 5432
 
 ## To run the project execute following commands in sequence
 
