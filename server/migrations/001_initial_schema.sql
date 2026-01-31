@@ -24,7 +24,7 @@ CREATE TABLE IF NOT EXISTS TOKENS(
 CREATE INDEX IF NOT EXISTS idx_bank_user_email ON bank_user(email);
 
 -- Create index on userid in tokens table for faster token lookups
-CREATE INDEX IF NOT EXISTS idx_tokens_userid ON tokens(userid);
+CREATE INDEX IF NOT EXISTS idx_tokens_userid ON TOKENS(userid);
 
 -- Create index on access_token for faster authentication
-CREATE INDEX IF NOT EXISTS idx_tokens_access_token ON tokens(access_token);
+CREATE INDEX IF NOT EXISTS idx_tokens_access_token ON TOKENS(access_token);
